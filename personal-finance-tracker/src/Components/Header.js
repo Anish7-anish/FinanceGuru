@@ -24,12 +24,16 @@ const Header = () => {
     navigate("/dashboard");
   };
 
+  const isAuthPage = location.pathname === "/";
+
   return (
     <header className="header">
       <h1 onClick={handleHeadingClick} className="header-heading">FinanceGuru</h1>
+      {!isAuthPage && (
       <button className="header-button" onClick={handleLogout}>
         Log Out
       </button>
+      )}
     </header>
   );
 };

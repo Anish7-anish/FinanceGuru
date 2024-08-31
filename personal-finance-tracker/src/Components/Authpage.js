@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Authpage.css';
 import { useNavigate } from 'react-router-dom';
-
+import Header from './Header';
 
 function AuthPage() {
   const navigate = useNavigate();
@@ -49,8 +49,8 @@ function AuthPage() {
         password,
       });
       if (response && response.data) {
-        // alert(response.data); // Success message
-        navigate('/dashboard');
+        localStorage.setItem("isLoggedIn", "true"); // Set login state in localStorage
+        navigate('/dashboard'); // Redirect to dashboard
       } else {
         alert('Login successful, but no response data returned.');
       }
@@ -64,6 +64,8 @@ function AuthPage() {
   };
 
   return (
+  <div>
+    <Header />
     <div className={`container ${isSignUpActive ? "right-panel-active" : ""}`} id="container">
       <div className="form-container sign-up-container">
         <form onSubmit={handleSignupSubmit}>
@@ -121,13 +123,14 @@ function AuthPage() {
             <button className="ghost" onClick={handleSignInClick}>Sign In</button>
           </div>
           <div className="overlay-panel overlay-right">
-            <h1>Hello, Friend!</h1>
+            <h1>Register!</h1>
             <p>Enter your personal details and start journey with us</p>
             <button className="ghost" onClick={handleSignUpClick}>Sign Up</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
   );
 }
 
