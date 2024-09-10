@@ -1,15 +1,16 @@
 package com.example.financetracker.controller;
 
+import com.example.financetracker.model.PasswordValidationRequest;
 import com.example.financetracker.model.User;
 import com.example.financetracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.UUID;
 import java.util.List;
 import java.util.Optional;
-
 
 @RestController
 @RequestMapping("/api/users")
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody User user) {
+    public ResponseEntity<Map<String, Object>> loginUser(@RequestBody User user) {
         return userService.authenticateUser(user);
     }
 
@@ -38,9 +39,27 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
+    // New endpoint for updating user profile
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable UUID id, @RequestBody User userDetails) {
+        return userService.updateUser(id, userDetails)
+                .map(updatedUser -> ResponseEntity.ok().body(updatedUser))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/validate-password")
+    public ResponseEntity<String> validatePassword(@RequestBody PasswordValidationRequest request) {
+        boolean isValid = userService.validatePassword(request.getUserId(), request.getPassword());
+        if (isValid) {
+            return ResponseEntity.ok("Password is valid.");
+        } else {
+            return ResponseEntity.status(401).body("Invalid password.");
+        }
     }
 }

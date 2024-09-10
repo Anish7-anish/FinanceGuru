@@ -3,21 +3,37 @@
     padding: 20px;
     font-family: Arial, sans-serif;
   }
-
-  body, html {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  
+  .profile-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .profile-table th,
+  .profile-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .profile-table th {
+    background-color: #f4f4f4;
+    text-align: left;
+    width: 20%;
+  }
+  
+  .profile-table td {
+    background-color: #fff;
+    text-align: left;
   }
   
   .button-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 10px;
+    justify-content: center;
     margin-top: 20px;
   }
-
+  
   .button-container button {
     color: #090909;
     padding: 0.7em 1.7em;
@@ -39,32 +55,8 @@
     box-shadow: 4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff;
   }
   
-
   h1 {
     text-align: center;
     margin-bottom: 20px;
-  }
-  
-  .dashboard-overview {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  h2 {
-    margin-bottom: 15px;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    margin-bottom: 10px;
-  }
-  
-  p {
-    margin: 5px 0;
   }
   
